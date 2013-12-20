@@ -30,10 +30,10 @@ class WorkerManagerInterface(object):
     def get_user_difficulty(self, worker_name):
         wd = dbi.get_user(worker_name)
         if len(wd) > 6:
-            #dbi.update_worker_diff(worker_name, wd[6])
-            return (True, wd[6])
-        else:
-            return (False, settings.POOL_TARGET)
+            if wd[6] != 0:
+                return (True, wd[6])
+                #dbi.update_worker_diff(worker_name, wd[6])
+        return (False, settings.POOL_TARGET)
 
     def register_work(self, worker_name, job_id, difficulty):
 	    now = Interfaces.timestamper.time()
